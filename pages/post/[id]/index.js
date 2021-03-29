@@ -43,7 +43,8 @@ export async function getStaticProps(context) {
     props: {
       post,
       parags
-    }, // will be passed to the page component as props
+    },
+    revalidate: 10
   }
 }
 
