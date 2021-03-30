@@ -19,7 +19,14 @@ export default function App({ posts }) {
         <main className='content-screen'>
 
           <h1 className='home-title'>Some blog posts</h1>
-          {posts.map(item => <div key={item.id}><Link href='/post/[id]' as={`/post/${item.id}`} className='home-links'>{item.title}</Link><br/></div>)}
+          
+          {posts.map(item => {
+            return (
+              <div key={item.id}>
+                <Link href='/post/[id]' as={`/post/${item.id}`} className='home-links'>{item.title}</Link><br/>
+              </div>
+            )
+          })}
 
         </main>
 
