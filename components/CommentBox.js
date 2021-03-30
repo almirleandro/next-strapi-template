@@ -22,10 +22,8 @@ export default function CommentBox({ postId }) {
         }),
       })
       setSentStatus(true);
-      setTimeout(() => {
-        Router.reload(window.location.pathname);
-      }, 2000)
-      
+      Router.reload(window.location.pathname);
+
     } catch (err) {
       console.error(err)
     }
@@ -40,7 +38,7 @@ export default function CommentBox({ postId }) {
         <input placeholder='Your name' value={username} onChange={e => setUsername(e.target.value)} required></input><br/>
         <textarea placeholder='Your comment' value={content} onChange={e => setContent(e.target.value)} required></textarea><br/>
         <button>Send</button>
-        <span style={{'display': sentStatus ? 'block' : 'none'}}>Comment sent! The page is going to reload now.</span>
+        <span style={{'display': sentStatus ? 'block' : 'none'}}>Comment sent! Reload the page to check it.</span>
       </form>
 
     </div>
