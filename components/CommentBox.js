@@ -22,8 +22,10 @@ export default function CommentBox({ postId }) {
         }),
       })
       setSentStatus(true);
-      Router.reload(window.location.pathname);
-
+      setTimeout(() => {
+        Router.reload(window.location.pathname);
+      }, 2000)
+      
     } catch (err) {
       console.error(err)
     }
