@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
-export default function App({ posts }) {
+export default function App({ sortedPosts }) {
   return (
     <div className='total-screen'>
 
@@ -20,7 +20,7 @@ export default function App({ posts }) {
 
           <h1 className='home-title'>Some blog posts</h1>
           
-          {posts.map(item => {
+          {sortedPosts.map(item => {
             return (
               <div key={item.id}>
                 <Link href='/post/[id]' as={`/post/${item.id}`} className='home-links'>{item.title}</Link><br/>
@@ -32,7 +32,7 @@ export default function App({ posts }) {
 
       </div>
 
-      <Footer />   
+      <Footer />
 
     </div>
   )
@@ -42,10 +42,23 @@ export async function getStaticProps(context) {
   const res = await fetch(`https://sleepy-fjord-96876.herokuapp.com/posts`);
   const posts = await res.json();
 
+  // Sort posts
+  let postsObject = {};
+  let highestId = -1;
+  posts.map(post => {
+    postsObject[post.id] = post;
+    if (+post.id > +highestId) highestId = +post.id;
+  })
+  
+  let sortedPosts = [];
+  for (let i = highestId; i >= 0; i--) {
+    if (postsObject[i]) sortedPosts.push(postsObject[i]);
+  }
+
   return {
     props: {
-      posts
+      sortedPosts
     },
-    revalidate: 10
+    revalidate: 1
   }
 }
